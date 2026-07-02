@@ -1,0 +1,100 @@
+{
+  "plugins": {
+    "landing1": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-09T09:27:36.268Z",
+      "source": "local"
+    },
+    "checkout": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-09T09:28:16.651Z",
+      "source": "local"
+    },
+    "subscription": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-03-27T00:00:00.000Z",
+      "source": "local"
+    },
+    "stripe-payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-11T12:00:00.000Z",
+      "source": "local"
+    },
+    "paypal-payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-12T12:00:00.000Z",
+      "source": "local"
+    },
+    "yookassa-payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-12T12:00:00.000Z",
+      "source": "local"
+    },
+    "theme-switcher": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-13T12:00:00.000Z",
+      "source": "local"
+    },
+    "chat": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-13T14:00:00.000Z",
+      "source": "local"
+    },
+    "taro": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-02-15T18:00:00.000Z",
+      "source": "local"
+    },
+    "cms": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-03-02T10:00:00.000Z",
+      "source": "local"
+    },
+    "ghrm": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-03-11T10:00:00.000Z",
+      "source": "local"
+    },
+    "booking": {
+      "enabled": true,
+      "version": "0.1.0",
+      "installedAt": "2026-03-19T15:54:42.122Z",
+      "source": "local"
+    },
+    "shop": {
+      "enabled": true,
+      "version": "0.1.0",
+      "installedAt": "2026-03-29T00:00:00.000Z",
+      "source": "local"
+    },
+    "meinchat": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-05-05T11:00:00.000Z",
+      "source": "local"
+    },
+    "token-payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "2026-05-25T00:00:00.000Z",
+      "source": "local"
+    },
+    "shop-pharma": {
+      "enabled": true,
+      "version": "0.1.0",
+      "installedAt": "2026-06-22T00:00:00.000Z",
+      "source": "local"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/analytics" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/booking" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/bot_base" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/bot_meinchat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/chat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/checkout" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/cms" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/discount" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/email" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/ghrm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/mailchimp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/meinchat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/paypal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/shop" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/stripe" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/subscription" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/taro" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-backend/plugins/token_payment" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/analytics-widget" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/booking" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/cms-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/discount-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/email-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/ghrm-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/meinchat-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/shop-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/subscription-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/taro-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/plugins/token-payment-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-admin/vbwd-fe-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/booking" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/chat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/checkout" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/cms" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/ghrm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/landing1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/meinchat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/paypal-payment" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/shop" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/stripe-payment" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/subscription" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/taro" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/theme-switcher" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/plugins/token-payment" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vbwd-fe-user/vbwd-fe-core" vcs="Git" />
+  </component>
+</project>

@@ -1,0 +1,94 @@
+{
+  "plugins": {
+    "analytics": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "chat": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "cms": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "email": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "ghrm": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "mailchimp": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "paypal": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "stripe": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "taro": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "yookassa": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "booking": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "subscription": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "shop": {
+      "enabled": true,
+      "version": "0.1.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "discount": {
+      "enabled": true,
+      "version": "0.1.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "token_payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    }
+  }
+}

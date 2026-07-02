@@ -1,0 +1,66 @@
+# Environment
+.env
+*.env.local
+
+# Data volumes
+data/mysql/
+data/python/logs/
+data/frontend/logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.venv/
+*.egg-info/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Node
+node_modules/
+dist/
+.npm/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+/vbwd-frontend/user/test-results/
+/vbwd-frontend/admin/vue/test-results/
+
+# Runtime plugin config — may contain API keys / secrets. Per-deployment.
+# The three plugin-*.json manifest files (which plugins are enabled) are
+# safe to commit — those are seeded from the canonical defaults by the
+# install recipes. The *-config.json files are runtime per-environment
+# state populated from each app's plugins/config.json (already gitignored).
+var/plugins/*-config.json
+# Core settings (provider/contact/address + bank IBAN/BIC) — sensitive,
+# per-deployment runtime state written by the admin Settings → Core tab.
+var/core/*.json
+# Editable/runtime assets (owner-namespaced: core or a plugin id), e.g.
+# admin-supplied email templates at var/assets/core/email/templates/.
+# Per-deployment, host-mounted; never baked into the image or committed.
+var/assets/
+# GHRM GitHub App private key (and any other secret material under var/) —
+# host-mounted into the backend at /app/var; never commit secrets.
+var/log/*
+var/logs/*
+
+var/seo/*
+var/**/*.pem
+var/ghrm/auth/*.pem
+vbwd-demo-instances
+vbwd-platform
+
+# Android port — its own standalone git repo, not tracked by this monorepo.
+vbwd-android/
+
