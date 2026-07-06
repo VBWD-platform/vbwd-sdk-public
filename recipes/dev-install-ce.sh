@@ -11,7 +11,7 @@ set -e
 #
 # Plugin selection:
 #   --all-plugins                 Install the full curated demo set (DEFAULT).
-#   --plugins-list cms shop taro  Install only the named plugins (+ their
+#   --plugins-list cms shop tarot Install only the named plugins (+ their
 #                                 declared dependencies, resolved automatically).
 #
 # Every installed plugin is ENABLED, has its demo settings applied (the
@@ -26,7 +26,7 @@ set -e
 #   ./recipes/dev-install-ce.sh --domain myapp.com --ssl    # https://myapp.com
 #   VBWD_DOMAIN=myapp.com VBWD_SSL=1 ./recipes/dev-install-ce.sh
 #   ./recipes/dev-install-ce.sh --admin-email me@x.io --admin-password 'S3cret!'
-#   ./recipes/dev-install-ce.sh --plugins-list cms shop taro # CMS + Shop + Taro (+ deps)
+#   ./recipes/dev-install-ce.sh --plugins-list cms shop tarot # CMS + Shop + Tarot (+ deps)
 #
 # The default admin (admin@vbwd.local / admin123) is for LOCAL DEVELOPMENT
 # ONLY. The Step 3.6 routine rotates an existing admin's password to whatever
@@ -113,7 +113,7 @@ fi
 # RECORD ORDER IS SIGNIFICANT: it is also the demo-data population order.
 # Dependencies appear before their dependents (cms early — booking/shop/ghrm
 # emit CMS pages; email before shop/booking/subscription; subscription before
-# taro/meinchat/ghrm; bot_meinchat before meinchat).
+# tarot/meinchat/ghrm; bot_meinchat before meinchat).
 #
 # To add a plugin to the CE demo set, add one line here — nothing else in this
 # recipe needs to change.
@@ -130,7 +130,7 @@ PLUGIN_REGISTRY=(
     "withdraw|withdraw|withdraw||"
     "marketplace|marketplace|marketplace|marketplace|withdraw"
     "dataset|dataset|dataset|dataset|"
-    "taro|taro|taro|taro-admin|subscription"
+    "tarot|tarot|tarot|tarot-admin|subscription"
     "checkout|checkout|checkout||"
     "analytics|analytics||analytics-widget|"
     "chat|chat|chat||"
@@ -580,6 +580,14 @@ npm install && npm run build && rm -rf node_modules
 
 echo "Installing dependencies for vbwd-fe-user..."
 cd "$FE_USER_DIR"
+# The app's package.json aliases `vbwd-view-component` to the published
+# @vbwd-platform/vbwd-view-component on GitHub Packages (used by the standalone
+# app CI, which authenticates with NODE_AUTH_TOKEN). The SDK install instead
+# consumes fe-core from the in-tree submodule we just built, so a public clone
+# needs no GitHub Packages token: repoint the alias at the local submodule and
+# drop the scoped .npmrc so npm never queries npm.pkg.github.com.
+npm pkg set 'dependencies.vbwd-view-component=file:vbwd-fe-core'
+rm -f .npmrc
 npm install
 echo "✓ vbwd-fe-user dependencies installed"
 
@@ -640,6 +648,10 @@ npm install && npm run build && rm -rf node_modules
 
 echo "Installing dependencies for vbwd-fe-admin..."
 cd "$FE_ADMIN_DIR"
+# See the fe-user note above: consume fe-core from the in-tree submodule build
+# rather than the token-gated @vbwd-platform GitHub Packages release.
+npm pkg set 'dependencies.vbwd-view-component=file:vbwd-fe-core'
+rm -f .npmrc
 npm install
 echo "✓ vbwd-fe-admin dependencies installed"
 
@@ -808,7 +820,7 @@ fi
 # Order matters and is guaranteed by the registry ordering: CMS first
 # (creates layouts/widgets/styles/pages — required by booking + shop + ghrm
 # which emit CMS layouts + pages); email before shop/booking/subscription;
-# subscription before taro/meinchat/ghrm; bot_meinchat (seeds the `assistant`
+# subscription before tarot/meinchat/ghrm; bot_meinchat (seeds the `assistant`
 # BOT user) before meinchat (seeds the bot-widget that references it).
 # ──────────────────────────────────────────────────────────────────────────
 echo ""
