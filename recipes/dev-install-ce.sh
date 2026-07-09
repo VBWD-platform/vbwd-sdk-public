@@ -779,6 +779,43 @@ else
     echo "WARNING: run_migrations.sh not found, skipping migrations"
 fi
 
+# Seed the RBAC catalog: permissions, the admin roles (super_admin / admin) and
+# the default user access levels that back /admin/settings/access.
+#
+# bin/create_admin.sh (Step 3.6) already reaches the same seeder, but only as a
+# side effect of creating a user. Running it explicitly here keeps the two
+# concerns separate and means an install that supplies its own admin still gets
+# a populated RBAC catalog. Idempotent: permissions and roles are upserted,
+# access levels are create-only, so a re-run never clobbers edited grants.
+#
+# Operator override: a JSON array at ${VAR_DIR}/core/user_access_levels.json
+# replaces the shipped default levels before they are created. To amend levels
+# that already exist, place a data-exchange envelope at
+# ${VAR_DIR}/data_exchange/<entity>.json — imported below with --mode upsert.
+echo ""
+echo "=========================================="
+echo "Step 3.55: Seeding RBAC (permissions + access levels)"
+echo "=========================================="
+
+cd "$BACKEND_DIR"
+if docker compose exec -T api flask --app "vbwd:create_app()" seed-rbac; then
+    echo "✓ RBAC seeded (permissions, admin roles, user access levels)"
+else
+    echo "WARNING: RBAC seeding failed — /admin/settings/access may be empty"
+fi
+
+for rbac_entity in access_levels user_access_levels; do
+    if [ -f "$VAR_DIR/data_exchange/${rbac_entity}.json" ]; then
+        echo "Importing operator override for ${rbac_entity}..."
+        docker compose exec -T api \
+            flask --app "vbwd:create_app()" data-exchange import \
+            "$rbac_entity" "/app/var/data_exchange/${rbac_entity}.json" \
+            --mode upsert \
+            && echo "✓ Imported ${rbac_entity} override" \
+            || echo "WARNING: ${rbac_entity} override import failed"
+    fi
+done
+
 # Create the default admin user.
 #
 # Idempotent: bin/create_admin.sh inside the backend container does an
@@ -867,6 +904,20 @@ print('✓ ${plugin} populate_db() finished')
         echo "·· $plugin has no demo data — skipping populate"
     fi
 done
+
+# CMS pricing-card defaults — safety net. populate_cms.py already writes the
+# seeded theme/highlight_slug/features onto the pricing-native-plans widget, so
+# on a clean run this reports "already-current" and writes nothing. It matters
+# when the cms populate above was skipped or failed (the loop only WARNs), and
+# on a re-install over an existing database. Non-destructive: it fills those
+# keys only when unset, keeps any operator value, and never touches cms_post.
+if [ -f "$BACKEND_DIR/plugins/cms/src/bin/apply_pricing_card_defaults.py" ]; then
+    echo ""
+    echo "── Applying CMS pricing-card defaults ──"
+    (cd "$BACKEND_DIR" && docker compose exec -T -e PYTHONPATH=/app api \
+        python /app/plugins/cms/src/bin/apply_pricing_card_defaults.py) \
+        || echo "WARNING: pricing-card defaults failed — check logs"
+fi
 
 # ──────────────────────────────────────────────────────────────────────────
 # Step 3.8 — CMS images + default-home routing rules
