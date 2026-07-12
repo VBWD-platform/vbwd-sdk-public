@@ -239,6 +239,26 @@ write_plugins_manifest() {
     } > "$dest"
 }
 
+# Resolve backend plugin DIR names → their PluginMetadata.name, the key the
+# backend loader ENABLES by (BasePlugin registry is keyed by metadata.name).
+# Most match the dir, but the bot_* plugins and cms_ai use hyphens
+# (bot_meinchat → "bot-meinchat", cms_ai → "cms-ai") while token_payment /
+# wp_import keep underscores. Reading each cloned plugin's __init__.py is the
+# single source of truth (no guessing). A dir-name key would leave those
+# plugins registered-but-DISABLED — their routes/blueprints load yet
+# get_enabled_plugins() omits them (e.g. declare_public_routes() dropped →
+# route-exposure oracle false positives). Result in BACKEND_MANIFEST_KEYS.
+resolve_backend_manifest_keys() {
+    BACKEND_MANIFEST_KEYS=()
+    local dir name
+    for dir in "$@"; do
+        name="$(sed -nE "s/.*name[[:space:]]*=[[:space:]]*[\"']([a-z0-9_-]+)[\"'].*/\1/p" \
+            "$BACKEND_DIR/plugins/$dir/__init__.py" 2>/dev/null | head -1)"
+        [ -n "$name" ] || name="$dir"
+        BACKEND_MANIFEST_KEYS+=("$name")
+    done
+}
+
 echo "=========================================="
 echo "VBWD CE Development Environment Setup"
 echo "=========================================="
@@ -426,8 +446,12 @@ echo "✓ Backend plugins installed (${#BACKEND_PLUGINS[@]}): ${BACKEND_PLUGINS[
 # the dist file only enables a single bootstrap plugin, so copying it would
 # leave every demo plugin disabled. We always (re)write it so the enabled set
 # matches exactly what was just cloned.
-write_plugins_manifest "$BACKEND_DIR/plugins/plugins.json" "${BACKEND_PLUGINS[@]}"
-echo "✓ plugins.json generated (enables ${#BACKEND_PLUGINS[@]} backend plugins)"
+# Backend manifest keys are metadata.name (NOT the on-disk dir) — see
+# resolve_backend_manifest_keys. Frontend manifests keep the dir names (the Vue
+# loader matches by dir), so only the backend is remapped.
+resolve_backend_manifest_keys "${BACKEND_PLUGINS[@]}"
+write_plugins_manifest "$BACKEND_DIR/plugins/plugins.json" "${BACKEND_MANIFEST_KEYS[@]}"
+echo "✓ plugins.json generated (enables ${#BACKEND_MANIFEST_KEYS[@]} backend plugins: ${BACKEND_MANIFEST_KEYS[*]})"
 
 # config.json holds per-plugin SAVED config overrides. Demo settings come from
 # each plugin's own config.json / admin-config.json (read directly from the

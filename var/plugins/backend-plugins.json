@@ -72,7 +72,7 @@
       "installedAt": "",
       "source": "local"
     },
-    "cms_ai": {
+    "cms-ai": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
@@ -90,13 +90,13 @@
       "installedAt": "",
       "source": "local"
     },
-    "bot_base": {
+    "bot-base": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "bot_meinchat": {
+    "bot-meinchat": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
@@ -108,7 +108,7 @@
       "installedAt": "",
       "source": "local"
     },
-    "bot_telegram": {
+    "bot-telegram": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
@@ -120,7 +120,7 @@
       "installedAt": "",
       "source": "local"
     },
-    "bot_meinchat_llm": {
+    "bot-meinchat-llm": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
