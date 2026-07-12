@@ -127,20 +127,19 @@ PLUGIN_REGISTRY=(
     "shop|shop|shop|shop-admin|email"
     "booking|booking|booking|booking|email"
     "ghrm|ghrm|ghrm|ghrm-admin|subscription"
-    "withdraw|withdraw|withdraw||"
-    "marketplace|marketplace|marketplace|marketplace|withdraw"
-    "dataset|dataset|dataset|dataset|"
+    "dataset|dataset|dataset|dataset|cms,subscription"
     "tarot|tarot|tarot|tarot-admin|subscription"
     "checkout|checkout|checkout||"
-    "analytics|analytics||analytics-widget|"
-    "chat|chat|chat||"
+    "wp_import|wp_import||wp-import|cms"
+    "cms_ai|cms_ai||cms-ai|cms"
     "paypal|paypal|paypal-payment||"
     "stripe|stripe|stripe-payment||"
-    "mailchimp|mailchimp|||"
     "bot_base|bot_base|||"
     "bot_meinchat|bot_meinchat|||bot_base"
     "meinchat|meinchat|meinchat|meinchat-admin|subscription,bot_meinchat"
-    "theme-switcher||theme-switcher||"
+    "bot_telegram|bot_telegram||bot-telegram-admin|bot_base"
+    "referral|referral|||discount,meinchat"
+    "bot_meinchat_llm|bot_meinchat_llm|||bot_base,meinchat,referral,discount,subscription,shop,booking"
     "landing1||landing1||"
 )
 
@@ -452,15 +451,21 @@ echo "Seeding $VAR_DIR/plugins/ (idempotent — admin edits via UI are preserved
 seed_manifest() {
     src="$1"
     dst="$VAR_DIR/plugins/$2"
-    if [ -f "$dst" ]; then
-        echo "  skip  $(basename "$dst") — already exists"
-    elif [ -f "$src" ]; then
+    if [ -f "$src" ]; then
+        # OVERWRITE from the freshly-generated source. The runtime backend reads
+        # its enable-state from var/plugins/backend-plugins.json (VBWD_BACKEND_PLUGINS_JSON),
+        # so a stale committed copy here would enable the WRONG plugin set (this
+        # repo used to ship an old set — analytics/chat/taro/yookassa — which then
+        # shadowed the generated one on every fresh install). The generated src
+        # always matches exactly what was just cloned + enabled, so it wins.
         cp "$src" "$dst"
-        echo "  seed  $(basename "$dst") ← $src"
+        echo "  seed  $(basename "$dst") ← $src (overwrite)"
+    elif [ -f "$dst" ]; then
+        echo "  keep  $(basename "$dst") — no generated source, existing kept"
     else
-        # Source missing: still create an empty JSON manifest so `make up`
-        # bind-mounts a real file. Leaving it absent makes Docker auto-create
-        # the host path as a directory, breaking the file mount.
+        # No source and no existing file: create an empty JSON manifest so
+        # `make up` bind-mounts a real file (an absent host path is auto-created
+        # by Docker as a directory, breaking the file mount).
         echo '{}' > "$dst"
         echo "  WARN  $src not found; wrote empty $(basename "$dst")"
     fi
@@ -886,13 +891,25 @@ for plugin in "${POPULATE_PLUGINS[@]}"; do
         # inside an app context so db.session + plugin imports resolve.
         echo ""
         echo "── Populating $plugin (via populate_db.py fallback) ──"
-        if docker compose exec -T api python -c "
-from vbwd.app import create_app
-app = create_app()
-with app.app_context():
-    from plugins.${plugin}.populate_db import populate_db
-    populate_db()
-print('✓ ${plugin} populate_db() finished')
+        # populate_db.py comes in TWO shapes and we must handle both:
+        #   (a) a module that defines a populate_db() function (e.g. token_payment,
+        #       bot_meinchat, meinchat) — import and call it inside an app context;
+        #   (b) a __main__-style script that does its work under
+        #       `if __name__ == "__main__":` (e.g. checkout, dataset) and
+        #       self-manages its app context — importing it does nothing, so run
+        #       the file as __main__ instead.
+        # PYTHONPATH=/app so `import vbwd` / `import plugins.*` resolve.
+        if docker compose exec -T -e PYTHONPATH=/app api python -c "
+import importlib, runpy
+mod = importlib.import_module('plugins.${plugin}.populate_db')
+if hasattr(mod, 'populate_db'):
+    from vbwd.app import create_app
+    with create_app().app_context():
+        mod.populate_db()
+    print('✓ ${plugin} populate_db() finished')
+else:
+    runpy.run_path('/app/plugins/${plugin}/populate_db.py', run_name='__main__')
+    print('✓ ${plugin} populate_db.py executed')
 "; then
             echo "✓ $plugin demo data populated"
         else

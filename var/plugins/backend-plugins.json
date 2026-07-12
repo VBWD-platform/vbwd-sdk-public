@@ -1,17 +1,5 @@
 {
   "plugins": {
-    "analytics": {
-      "enabled": true,
-      "version": "1.0.0",
-      "installedAt": "",
-      "source": "local"
-    },
-    "chat": {
-      "enabled": true,
-      "version": "1.0.0",
-      "installedAt": "",
-      "source": "local"
-    },
     "cms": {
       "enabled": true,
       "version": "1.0.0",
@@ -24,13 +12,67 @@
       "installedAt": "",
       "source": "local"
     },
+    "subscription": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "discount": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "token_payment": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "shop": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "booking": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
     "ghrm": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "mailchimp": {
+    "dataset": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "tarot": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "checkout": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "wp_import": {
+      "enabled": true,
+      "version": "1.0.0",
+      "installedAt": "",
+      "source": "local"
+    },
+    "cms_ai": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
@@ -48,43 +90,37 @@
       "installedAt": "",
       "source": "local"
     },
-    "taro": {
+    "bot_base": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "yookassa": {
+    "bot_meinchat": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "booking": {
+    "meinchat": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "subscription": {
+    "bot_telegram": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "shop": {
+    "referral": {
       "enabled": true,
-      "version": "0.1.0",
+      "version": "1.0.0",
       "installedAt": "",
       "source": "local"
     },
-    "discount": {
-      "enabled": true,
-      "version": "0.1.0",
-      "installedAt": "",
-      "source": "local"
-    },
-    "token_payment": {
+    "bot_meinchat_llm": {
       "enabled": true,
       "version": "1.0.0",
       "installedAt": "",
