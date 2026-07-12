@@ -740,6 +740,22 @@ VITE_API_URL=/api/v1
 VITE_BACKEND_URL=${HTTP}://${DOMAIN}:5000
 VITE_WS_URL=${WS}://${DOMAIN}:5000
 EOF
+        # fe-admin's Settings → "User Plugins" panel signs its requests to the
+        # fe-user plugin-api server with an HMAC over VITE_PLUGIN_API_SECRET. That
+        # secret MUST equal the server's PLUGIN_API_SECRET (hardcoded in
+        # vbwd-fe-user/docker-compose.yaml). Without it the panel errors with
+        # "HMAC key data must not be empty" (Web Crypto rejects an empty key).
+        if [ "$FE_DIR" = "$FE_ADMIN_DIR" ]; then
+            plugin_api_secret="$(sed -nE 's/.*PLUGIN_API_SECRET=([0-9a-fA-F]{32,}).*/\1/p' \
+                "$FE_USER_DIR/docker-compose.yaml" 2>/dev/null | head -1)"
+            if [ -n "$plugin_api_secret" ]; then
+                printf 'VITE_PLUGIN_API_SECRET=%s\nVITE_USER_APP_URL=%s://%s:8080\n' \
+                    "$plugin_api_secret" "$HTTP" "$DOMAIN" >> "$FE_DIR/.env"
+                echo "  ✓ fe-admin VITE_PLUGIN_API_SECRET set (matches fe-user plugin-api)"
+            else
+                echo "  ⚠️ could not read PLUGIN_API_SECRET from fe-user compose — User Plugins panel may fail"
+            fi
+        fi
         echo "✓ Environment file created for $FE_NAME (domain: $DOMAIN)"
     fi
 done
