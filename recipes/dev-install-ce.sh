@@ -140,6 +140,7 @@ PLUGIN_REGISTRY=(
     "bot_telegram|bot_telegram||bot-telegram-admin|bot_base"
     "referral|referral|||discount,meinchat"
     "bot_meinchat_llm|bot_meinchat_llm|||bot_base,meinchat,referral,discount,subscription,shop,booking"
+    "bdv|bdv|bdv|bdv-admin|bot_base"
     "landing1||landing1||"
 )
 
