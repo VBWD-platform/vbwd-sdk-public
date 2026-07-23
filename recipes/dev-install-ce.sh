@@ -125,6 +125,7 @@ PLUGIN_REGISTRY=(
     "discount|discount||discount-admin|"
     "token_payment|token_payment|token-payment|token-payment-admin|"
     "shop|shop|shop|shop-admin|email"
+    "bdv|bdv|bdv|bdv-admin|"
     "booking|booking|booking|booking|email"
     "ghrm|ghrm|ghrm|ghrm-admin|subscription"
     "dataset|dataset|dataset|dataset|cms,subscription"
